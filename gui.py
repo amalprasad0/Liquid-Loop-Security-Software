@@ -178,6 +178,12 @@ vmob.place(
     width=182.0,
     height=48.0
 )
+# HINT METHOD
+def click(*args):
+    vmob.delete(0, 'end')
+vmob.bind("<Button-1>", click)
+vmob.insert(0,"Mobile Number")
+# 
 
 entry_image_3 = PhotoImage(
     file=relative_to_assets("entry_3.png"))
@@ -323,7 +329,7 @@ vhlreason.place(
 # Add Button
 
 button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
+    file=relative_to_assets("ADD.png"))
 addbtn = Button(
     image=button_image_1,
     borderwidth=0,
@@ -454,7 +460,7 @@ entry_14.place(
 )
 
 button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
+    file=relative_to_assets("ADD.png"))
 button_2 = Button(
     image=button_image_2,
     borderwidth=0,
@@ -496,7 +502,7 @@ vs_date.place(
 entry_image_21 = PhotoImage(
     file=relative_to_assets("TextBox.png"))
 entry_bg_21 = canvas.create_image(
-    990.0,
+    1070.0,
     176.0,
     image=entry_image_21
 )
@@ -508,7 +514,7 @@ vs_num = Entry(
     
 )
 vs_num.place(
-    x=900.0,
+    x=975.0,
     y=152.0,
     width=188.0,
     height=48.0
@@ -516,7 +522,7 @@ vs_num.place(
 # ended
 # Search button
 button_image_21 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
+    file=relative_to_assets("SEARCH.png"))
 v_searchbtn = Button(
     image=button_image_21,
     borderwidth=0,
@@ -564,7 +570,7 @@ treev.heading("8", text ="REASON")
 
 # Button For removal
 button_image_22 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
+    file=relative_to_assets("REMOVE.png"))
 v_removetn = Button(
     image=button_image_22,
     borderwidth=0,
@@ -574,10 +580,10 @@ v_removetn = Button(
 )
 v_removetn.place(
     x=1250.0,
-    y=450.0,
+    y=460.0,
     width=210.0,
     height=50.0
 )
 
-window.resizable(True,True)
+window.resizable(False,False)
 window.mainloop()
