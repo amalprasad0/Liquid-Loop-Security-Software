@@ -3,13 +3,17 @@
 # https://github.com/ParthJadhav/Tkinter-Designer
 
 
+from email.mime import image
 from pathlib import Path
 from tkinter import *
 from tkinter import ttk
 from datetime import date
+from datetime import datetime
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+
+
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -37,10 +41,10 @@ today = date.today()
 vlDate.set(today)
 # end
 # time->
-from datetime import datetime
+
+
 now = datetime.now()
 time = now.strftime("%H:%M:%S")
-print(time)
 vlTime.set(time)
 # method for Insertion of vhl rcd
 def insertData():
@@ -54,9 +58,62 @@ def insertData():
     vreason=vlReason.get()
     print("Details:",time,"|",date,"|",vehiclenum,"|",Vinout,"|",Vowner,"|",Vowner,"|",Vlmob,"|",vltyp,"|",vreason)
     VhlReader=open("Data Records/Vehicle.txt","a")
-    VhlReader.write(time+"|"+date+"|"+vehiclenum+"|"+Vinout+"|"+Vowner+"|"+Vowner+"|"+Vlmob+"|"+vltyp+"|"+vreason+"\n")
+    VhlReader.write(date+"|"+time+"|"+vehiclenum+"|"+Vinout+"|"+Vowner+"|"+Vlmob+"|"+vltyp+"|"+vreason+"\n")
+    VhlReader.close()
+# variables for vhl search->
+s_date=StringVar()
+s_num=StringVar()
+# search method for vehicle
 def vehlsearch():
-    pass
+    date=s_date.get()
+    print(date)
+    vnum=s_num.get().upper()
+    print("Function called")
+    filereader=open("Data Records/Vehicle.txt","r")
+    lines=filereader.readlines()
+    temp=[]
+    for line in lines:
+        if line.startswith(date):
+            if line.find(vnum):
+                nl=line.split("|")
+                temp.append(nl)
+                print(temp)
+        else:
+            print("line Not Found ")
+    if(s_num=="" and date==""):
+        print("not found!")
+    else:
+        for i in range(0,len(temp)):
+           treev.insert("", 'end', text ="L"+str(i),values =(temp[i][0],temp[i][1],temp[i][2],temp[i][3],temp[i][4],temp[i][5],temp[i][6],temp[i][7]))
+           
+    filereader.close()
+    exit
+
+# methed for removal
+    # Variable for removal
+def removeData():
+    record=treev.focus()
+    temp=treev.item(record,'values')
+    temp_list=list(temp)
+    print(temp_list)
+    fileReader=open("Data Records/Vehicle.txt","r")
+    lines=fileReader.readlines()
+    for line in lines:
+        del_list=line.split("|")
+        if del_list==temp_list:
+            print(del_list)
+            del lines[lines.index(line)]
+            break
+    fileReader2=open("Data Records/Vehicle.txt","w+")
+    for i in lines:
+        fileReader2.write(i)
+    selected_item=treev.selection()[0]
+    treev.delete(selected_item)
+
+
+
+
+
 # checking for textbox
 def getname():
     global name
@@ -413,6 +470,114 @@ button_2.place(
 )
 
 
+# jhfkgjgf
+entry_image_20 = PhotoImage(
+    file=relative_to_assets("TextBox.png"))
+entry_bg_20 = canvas.create_image(
+    770.0,
+    176.0,
+    image=entry_image_20
+)
+vs_date = Entry(
+    bd=0,
+    bg="#C4C4C4",
+    highlightthickness=0,
+    textvariable=s_date
+    
+)
+vs_date.place(
+    x=675.0,
+    y=152.0,
+    width=192.0,
+    height=48.0
+)
+# ended
+# vs_num
+entry_image_21 = PhotoImage(
+    file=relative_to_assets("TextBox.png"))
+entry_bg_21 = canvas.create_image(
+    990.0,
+    176.0,
+    image=entry_image_21
+)
+vs_num = Entry(
+    bd=0,
+    bg="#C4C4C4",
+    highlightthickness=0,
+    textvariable=s_num
+    
+)
+vs_num.place(
+    x=900.0,
+    y=152.0,
+    width=188.0,
+    height=48.0
+)
+# ended
+# Search button
+button_image_21 = PhotoImage(
+    file=relative_to_assets("button_2.png"))
+v_searchbtn = Button(
+    image=button_image_21,
+    borderwidth=0,
+    highlightthickness=0,
+    command=vehlsearch,
+    relief="flat"
+)
+v_searchbtn.place(
+    x=1250.0,
+    y=152.0,
+    width=210.0,
+    height=50.0
+)
+
+
+
+
+# Treeview->
+treev = ttk.Treeview(window, selectmode ='browse')
+treev.place(x=670,y=220)
+    
+
+                    
+treev["columns"] = ("1", "2", "3","4","5","6","7","8")
+treev['show'] = 'headings'
+treev.column("1", width = 100, anchor ='c')
+treev.column("2", width = 100, anchor ='se')
+treev.column("3", width = 100, anchor ='se')
+treev.column("4", width = 100, anchor ='se')
+treev.column("5", width = 100, anchor ='se')
+treev.column("6", width = 100, anchor ='se')
+treev.column("7", width = 100, anchor ='se')
+treev.column("8", width = 100, anchor ='se')
+                    
+treev.heading("1", text ="DATE")
+treev.heading("2", text ="TIME")
+treev.heading("3", text ="VEHICLE NUMBER")
+treev.heading("4", text ="IN/OUT")
+treev.heading("5", text ="OWNER NAME")
+treev.heading("6", text ="MOBILE")
+treev.heading("7", text ="TYPE")
+treev.heading("8", text ="REASON")
+
+# # ended-<
+
+# Button For removal
+button_image_22 = PhotoImage(
+    file=relative_to_assets("button_2.png"))
+v_removetn = Button(
+    image=button_image_22,
+    borderwidth=0,
+    highlightthickness=0,
+    command=removeData,
+    relief="flat"
+)
+v_removetn.place(
+    x=1250.0,
+    y=450.0,
+    width=210.0,
+    height=50.0
+)
 
 window.resizable(True,True)
 window.mainloop()
