@@ -1,8 +1,12 @@
+
+
 from email.mime import image
 from fileinput import close
 from pathlib import Path
+from re import T
 from tkinter import *
 from tkinter import ttk
+import gui
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
@@ -25,7 +29,7 @@ def relative_to_assets(path: str) -> Path:
 update_section=Tk()
 update_section.configure(bg = "#FFFFFF")
 update_section.geometry("960x620")
-update_section.wm_title("Record Updation")
+update_section.wm_title("Record Updation -1")
 
 u_date=StringVar()
 u_num=StringVar()
@@ -118,7 +122,7 @@ def update():
     # print("Up:",temp)
     
 # date of vhl
-vdate = Entry(
+vdate = Entry(update_section,
     bd=0,
     bg="#C4C4C4",
     highlightthickness=0,
@@ -132,7 +136,7 @@ vdate.place(
 )
 
 # vhl number
-vhlnum = Entry(
+vhlnum = Entry(update_section,
     bd=0,
     bg="#C4C4C4",
     highlightthickness=0,
@@ -145,7 +149,7 @@ vhlnum.place(
     height=48.0
 )
 addbtn = Button(
-    
+    update_section,
     borderwidth=0,
     highlightthickness=0,
     command=updateData,
@@ -159,7 +163,7 @@ addbtn.place(
     height=50.0
 )
 # vhl owner name
-u_name = Entry(
+u_name = Entry(update_section,
     bd=0,
     bg="#C4C4C4",
     highlightthickness=0,
@@ -172,7 +176,7 @@ u_name.place(
     height=48.0
 )
 # Vehicle number
-vhlnum = Entry(
+vhlnum = Entry(update_section,
     bd=0,
     bg="#C4C4C4",
     highlightthickness=0,
@@ -184,7 +188,7 @@ vhlnum.place(
     width=182.0,
     height=48.0
 )
-mob = Entry(
+mob = Entry(update_section,
     bd=0,
     bg="#C4C4C4",
     highlightthickness=0,
@@ -196,7 +200,7 @@ mob.place(
     width=182.0,
     height=48.0
 )
-updatebtn = Button(
+updatebtn = Button(update_section,
     
     borderwidth=0,
     highlightthickness=0,
