@@ -61,7 +61,7 @@ jobs:
           GITHUB_USER: "amalprasad0"
           REPO: "Liquid-Loop-Security-Software"
           FORMAT: "zip"
-          VERSION: "${{ steps.next-tag.outputs.tag }}"
+          VERSION: "1.0.0"
           COLOR: "blue"
           BEGIN_TAG: "<!-- BEGIN LATEST DOWNLOAD BUTTON -->"
           END_TAG: "<!-- END LATEST DOWNLOAD BUTTON -->"
