@@ -7,7 +7,7 @@
         <p align="left"><a href="https://github.com/amalprasad0/Liquid-Loop-Security-Software/commits/v1.0.0)"> chanelog</a></p>
 
 
-<h3 align="left">Tools Used:</h3>
+
 
 
 <h3 align="left">Languages and Tools:</h3>
