@@ -33,7 +33,7 @@ def relative_to_assets(path: str) -> Path:
 window = Tk()
 window.geometry("1493x950")
 # window.state('zoomed')
-window.wm_title("TID-SECURITY ASSISTANT")
+window.wm_title("Liquid-Loop SECURITY ASSISTANT")
 window.configure(bg = "#FFFFFF")
 
 # -----------------------------------------------Vehicle Section------------------------------------------------#
