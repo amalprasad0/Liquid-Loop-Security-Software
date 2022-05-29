@@ -2,7 +2,8 @@
 
 
 <h3 align="left">Releases</h3>
-[Download](https://github.com/amalprasad0/Liquid-Loop-Security-Software/releases/tag/v1.0.0)<br>
+<p align="left"><a href="https://github.com/amalprasad0/Liquid-Loop-Security-Software/releases/tag/v1.0.0"> Download</a></p>
+<br>
         <p align="left"><a href="https://github.com/amalprasad0/Liquid-Loop-Security-Software/commits/v1.0.0)"> chanelog</a></p>
 
 
