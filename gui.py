@@ -4,6 +4,7 @@
 
 
 from email.mime import image
+from operator import index
 from pathlib import Path
 from tkinter import *
 from tkinter import ttk
@@ -34,6 +35,7 @@ window.geometry("1493x950")
 # window.state('zoomed')
 window.wm_title("TID-SECURITY ASSISTANT")
 window.configure(bg = "#FFFFFF")
+
 # -----------------------------------------------Vehicle Section------------------------------------------------#
 # Variables for Vehicle record inserition
 vlDate=StringVar()
@@ -95,8 +97,8 @@ def vehlsearch():
                 print(temp)
         else:
             print("line Not Found ")
-    if(s_num=="" and date==""):
-        print("not found!")
+    if(s_num=="" or date==""):
+        messagebox.showerror("Required", "Feild is Empty\n Try Again")
     else:
         for i in range(0,len(temp)):
            treev.insert("", 'end', text ="L"+str(i),values =(temp[i][0],temp[i][1],temp[i][2],temp[i][3],temp[i][4],temp[i][5],temp[i][6],temp[i][7]))
@@ -406,6 +408,27 @@ def searchStudent():
 
 # 
 # ---------------Ended------------------------->
+# Removal--------------------->
+def removeStudent():
+    record=s_treev.focus()
+    temp=s_treev.item(record,'values')
+    temp_list=list(temp)
+    print(temp_list)
+    fileReader=open("Data Records/Student.txt","r")
+    lines=fileReader.readlines()
+    for line in lines:
+        del_list=line.split("|")
+        if del_list==temp_list:
+            print(del_list)
+            del lines[lines.index(line)]
+            break
+    fileReader2=open("Data Records/Student.txt","w+")
+    for i in lines:
+        fileReader2.write(i)
+    selected_item=s_treev.selection()[0]
+    s_treev.delete(selected_item)
+
+# --------------------ended>
 
 # checking for textbox
 def getname():
@@ -958,7 +981,7 @@ v_removetn = Button(
     image=button_image_30,
     borderwidth=0,
     highlightthickness=0,
-    command="",
+    command=removeStudent,
     relief="flat"
 )
 v_removetn.place(
@@ -1010,15 +1033,277 @@ s_searchbtn.place(
     width=210.0,
     height=50.0
 )
+# ---------------------STUDENT update -------------------------------------->
+def student_update():
+    Supdate_section=Toplevel(window)
+    Supdate_section.configure(bg = "#FFFFFF")
+    Supdate_section.geometry("960x620")
+    Supdate_section.wm_title("Student Record Updation")
+    search_date=StringVar()
+    search_usn=StringVar()
+
+    sup_name=StringVar()
+    sup_usn=StringVar()
+    sup_mob=StringVar()
+    search_date.set("2022-05-27")
+    search_usn.set("4dm19is027")
+    def SearchTree():
+        Student_date=search_date.get()
+        print(Student_date)
+        Student_usn=search_usn.get().upper()
+        print(Student_usn)
+        for record in up_treev.get_children():
+            up_treev.delete(record)
+        print("Student Function Called:[TreeSearch]")
+        searchtreefile=open("Data Records/Student.txt","r")
+        datas=searchtreefile.readlines()
+        searchTemp=[]
+        for line in datas:
+            if line.startswith(Student_date):
+                    smatch=line.split("|")
+                    searchTemp.append(smatch)
+                    print("Smatch:",smatch)
+        for j in range(0,len(searchTemp)):
+            if searchTemp[j][3]==Student_usn:
+                print(searchTemp[j])   
+                up_treev.insert("", 'end', text ="L"+str(j),values =(searchTemp[j][0],searchTemp[j][1],searchTemp[j][2],searchTemp[j][3],searchTemp[j][4],searchTemp[j][5],searchTemp[j][6]))
+            else:
+                 print("Not Found")
+        searchtreefile.close()
+    def set_value():
+    
+     record=up_treev.focus()
+     temp=up_treev.item(record,'values')
+     temp_list=list(temp)
+     
+     sup_usn.set(temp_list[3])
+     sup_name.set(temp_list[2])
+     sup_mob.set(temp_list[4])
+     return temp_list
+    def clicked_up(e):
+        set_value() 
+                      
+    # def update_student():
+    #     upname=sup_name.get().upper()
+    #     upmob=sup_mob.get()
+    #     up_usn=sup_usn.get().upper()
+    #     temp_list=set_value()
+    #     print("For Update List:",temp_list)
+    #     stud_file=open("Data Records/Student.txt","r")
+    #     lines=stud_file.readline()
+    #     up_record1=[]
+        
+    #     for line in lines:
+    #         if line.startswith(temp_list[0]):
+    #             nl=line.split("|")
+    #             if nl[1]==temp_list[1]:
+    #                 print("list:",nl)
+        
+    #     up_record1.append(nl[0])
+    #     up_record1.append(nl[1])
+    #     up_record1.append(upname)
+    #     up_record1.append(up_usn)
+    #     up_record1.append(upmob)
+    #     up_record1.append(nl[5])
+    #     up_record1.append(nl[6])
+    #     print("Updated List:",up_record1)
+    #     update_file="|".join(up_record1)
+    def update():
+        u_name=sup_name.get()
+        u_num=sup_usn.get()
+        u_mob=sup_mob.get()
+        temp_list=set_value()
+        print("up",temp_list)
+        
+        filereader=open("Data Records/Student.txt","r")
+        lines=filereader.readlines()
+        temp=[]
+        for line in lines:
+            if line.startswith(temp_list[0]):
+               
+                    nl=line.split("|")
+                    print(line)
+                    if nl[2]==temp_list[2]:
+                        print("up to",)
+                        Index=lines.index(line)
+                        print(Index)
+            
+
+        up_record=[]
+        up_record.append(nl[0])
+        up_record.append(nl[1])
+        up_record.append(u_name)
+        up_record.append(u_num)
+        up_record.append(u_mob)
+        up_record.append(nl[5])
+        up_record.append(nl[6])
+        
+        print("up record:",up_record)
+        
+        update_file="|".join(up_record)
+        # print(update_file)
+
+        
+        lines[Index]=update_file
+        print(Index)
+        print(lines)
+        
+        filereader2=open("Data Records/Student.txt","w+")
+        for i in lines:
+            filereader2.write(i)
+        filereader2.close()
+# -----------------Endend------------
+
+        
+        
+        
+    # date of Student
+    student_date = Entry(Supdate_section,
+        bd=0,
+        bg="#C4C4C4",
+        highlightthickness=0,
+        textvariable=search_date
+    )
+    student_date.place(
+        x=20.0,
+        y=100.0,
+        width=182.0,
+        height=48.0
+    )
+
+    # vhl number
+    student_usn = Entry(Supdate_section,
+        bd=0,
+        bg="#C4C4C4",
+        highlightthickness=0,
+        textvariable=search_usn
+    )
+    student_usn.place(
+        x=250.0,
+        y=100.0,
+        width=182.0,
+        height=48.0
+    )
+    student_btn = Button(
+        Supdate_section,
+        borderwidth=0,
+        highlightthickness=0,
+        command=SearchTree,
+        relief="flat",
+        text="UPDATE"
+    )
+    student_btn.place(
+        x=470.0,
+        y=100.0,
+        width=100.0,
+        height=50.0
+    )
+    # vhl owner name
+    update_nameS = Entry(Supdate_section,
+        bd=0,
+        bg="#C4C4C4",
+        highlightthickness=0,
+        textvariable=sup_name
+    )
+    update_nameS.place(
+        x=20.0,
+        y=480.0,
+        width=182.0,
+        height=48.0
+    )
+    # Vehicle number
+    student_usn2 = Entry(Supdate_section,
+        bd=0,
+        bg="#C4C4C4",
+        highlightthickness=0,
+        textvariable=sup_usn
+    )
+    student_usn2.place(
+        x=250.0,
+        y=480.0,
+        width=182.0,
+        height=48.0
+    )
+    student_mob= Entry(Supdate_section,
+        bd=0,
+        bg="#C4C4C4",
+        highlightthickness=0,
+        textvariable=sup_mob
+    )
+    student_mob.place(
+        x=470.0,
+        y=480.0,
+        width=182.0,
+        height=48.0
+    )
+    Supdatebtn = Button(Supdate_section,
+        
+        borderwidth=0,
+        highlightthickness=0,
+        command=update,
+        relief="flat",
+        text="UPDATE"
+    )
+    Supdatebtn.place(
+        x=700.0,
+        y=480.0,
+        width=100.0,
+        height=50.0
+    )
+    # table->
+    up_treev = ttk.Treeview(Supdate_section, selectmode ='browse')
+    up_treev.place(x=20,y=220)
+        
+
+                        
+    up_treev["columns"] = ("1", "2", "3","4","5","6","7")
+    up_treev['show'] = 'headings'
+    up_treev.column("1", width = 100, anchor ='c')
+    up_treev.column("2", width = 100, anchor ='se')
+    up_treev.column("3", width = 100, anchor ='se')
+    up_treev.column("4", width = 100, anchor ='se')
+    up_treev.column("5", width = 100, anchor ='se')
+    up_treev.column("6", width = 100, anchor ='se')
+    up_treev.column("7", width = 100, anchor ='se')
+
+    up_treev.bind('<ButtonRelease-1>',clicked_up)                   
+    up_treev.heading("1", text ="DATE")
+    up_treev.heading("2", text ="TIME")
+    up_treev.heading("3", text ="NAME")
+    up_treev.heading("4", text ="USN")
+    up_treev.heading("5", text ="MOBILE")
+    up_treev.heading("6", text ="IN/OUT")
+    up_treev.heading("7", text ="REASON")
 
 
+
+
+
+
+
+
+
+
+    # file = Menu(update_section, tearoff = 0)
+    # update_section.add_cascade(label ='File', menu = file)
+    # file.add_command(label ='New File', command = None)
+    # file.add_command(label ='Open...', command = None)
+    # file.add_command(label ='Save', command = None)
+    # file.add_separator()
+    # file.add_command(label ='Exit', command = update_section.destroy)
+
+
+
+
+    Supdate_section.mainloop()
+# --------------------------ENDED-----------------------------------------<
 
 # --------------------ENDED----------------------------------
 menubar = Menu(window,background='blue')
 edit = Menu(menubar, tearoff = 0)
 menubar.add_cascade(label ='Updations', menu = edit)
 edit.add_command(label ='Vehicle Record Updation', command =update_sec)
-edit.add_command(label ='Student Record Updation', command = "")
+edit.add_command(label ='Student Record Updation', command = student_update)
 
 
 
@@ -1050,9 +1335,27 @@ up_mob=StringVar()
 width= window.winfo_screenwidth()               
 height= window.winfo_screenheight()
 # ----------------------------bootom tab-------------------->
-statusbar =Label(window, text="Records:200    Updated Records:7     🌎:Live", bd=1, relief=SUNKEN, anchor=W,bg="#0F52FF",fg="#FFFFFF")
+file = open("Data Records/Student.txt", "r")
+line_count = 0
+for line in file:
+    if line != "\n":
+        line_count += 1
+file.close()
+file2 = open("Data Records/Vehicle.txt", "r")
+line_count1 = 0
+for line in file2:
+    if line != "\n":
+        line_count1 += 1
+file2.close()
+tcount=line_count+line_count1
+
+
+statusbar =Label(window, text="Records:"+str(tcount)+"    Updated Records:7     🌎:Live", bd=1, relief=SUNKEN, anchor=W,bg="#0F52FF",fg="#FFFFFF")
 statusbar.pack(side=BOTTOM, fill=X)
 # ended------------>
 window.resizable(False,False)
-# window.attributes('-fullscreen', True)
+
+# ------STUDENT SEARCH SECTION-------->
+photo = PhotoImage(file ="assets/barrier.png")
+window.iconphoto(False,photo)
 window.mainloop()
