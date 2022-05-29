@@ -1,5 +1,7 @@
 # Liquid-Loop-Security-Software
 
-to download:
-<!-- BEGIN LATEST DOWNLOAD BUTTON -->
-<!-- END LATEST DOWNLOAD BUTTON -->
+
+-v1.0.0
+[Download](https://github.com/amalprasad0/Liquid-Loop-Security-Software/releases/tag/v1.0.0)
+[channellog]()
+
