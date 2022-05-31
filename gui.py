@@ -83,6 +83,8 @@ def vehlsearch():
     date=s_date.get()
     print(date)
     vnum=s_num.get().upper()
+    if(s_num=="" or date==""):
+        messagebox.showerror("Required", "Feild is Empty\n Try Again")
     for record in treev.get_children():
         treev.delete(record)
     print("Function called")
@@ -91,17 +93,22 @@ def vehlsearch():
     temp=[]
     for line in lines:
         if line.startswith(date):
-            if line.find(vnum):
-                nl=line.split("|")
-                temp.append(nl)
-                print(temp)
+            # if line.find(vnum,20,30):
+            #     nl=line.split("|")
+            #     temp.append(nl)
+            #     print(temp)
+            nl=line.split("|")
+            temp.append(nl)
+    for i in range(0,len(temp)):
+        if temp[i][2]==vnum:
+           
+            treev.insert("", 'end', text ="L"+str(i),values =(temp[i][0],temp[i][1],temp[i][2],temp[i][3],temp[i][4],temp[i][5],temp[i][6],temp[i][7]))   
         else:
-            print("line Not Found ")
-    if(s_num=="" or date==""):
-        messagebox.showerror("Required", "Feild is Empty\n Try Again")
-    else:
-        for i in range(0,len(temp)):
-           treev.insert("", 'end', text ="L"+str(i),values =(temp[i][0],temp[i][1],temp[i][2],temp[i][3],temp[i][4],temp[i][5],temp[i][6],temp[i][7]))
+            messagebox.showerror("INFO", "Record Not Found in DB")
+    
+    # else:
+    #     for i in range(0,len(temp)):
+    #        treev.insert("", 'end', text ="L"+str(i),values =(temp[i][0],temp[i][1],temp[i][2],temp[i][3],temp[i][4],temp[i][5],temp[i][6],temp[i][7]))
            
     filereader.close()
     exit
