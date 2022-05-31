@@ -105,7 +105,7 @@ def vehlsearch():
             treev.insert("", 'end', text ="L"+str(i),values =(temp[i][0],temp[i][1],temp[i][2],temp[i][3],temp[i][4],temp[i][5],temp[i][6],temp[i][7]))   
         else:
             messagebox.showerror("INFO", "Record Not Found in DB")
-    
+            exit
     # else:
     #     for i in range(0,len(temp)):
     #        treev.insert("", 'end', text ="L"+str(i),values =(temp[i][0],temp[i][1],temp[i][2],temp[i][3],temp[i][4],temp[i][5],temp[i][6],temp[i][7]))
@@ -120,6 +120,7 @@ def removeData():
     temp=treev.item(record,'values')
     temp_list=list(temp)
     print(temp_list)
+    messagebox.askokcancel("askokcancel", "Want to continue?")
     fileReader=open("Data Records/Vehicle.txt","r")
     lines=fileReader.readlines()
     for line in lines:
@@ -133,6 +134,7 @@ def removeData():
         fileReader2.write(i)
     selected_item=treev.selection()[0]
     treev.delete(selected_item)
+
 # Update section implemention->
 # ---------------------------------------UPDATE----------------------------
 def update_sec():
