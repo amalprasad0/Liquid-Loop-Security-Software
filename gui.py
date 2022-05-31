@@ -11,6 +11,8 @@ from tkinter import ttk
 from datetime import date
 from datetime import datetime
 from time import strftime
+import os
+from twilio.rest import Client
 
 
 from tkinter import messagebox
@@ -65,16 +67,42 @@ vlTime.set(time)
 def insertData():
     time=vlTime.get()
     date=vlDate.get()
-    vehiclenum=vlNum.get()
-    Vinout=vlInout.get()
-    Vowner=vlOwner.get()
-    Vlmob=vlMob.get()
-    vltyp=vlType.get()
-    vreason=vlReason.get()
-    print("Details:",time,"|",date,"|",vehiclenum,"|",Vinout,"|",Vowner,"|",Vowner,"|",Vlmob,"|",vltyp,"|",vreason)
-    VhlReader=open("Data Records/Vehicle.txt","a")
-    VhlReader.write(str(date)+"|"+time+"|"+vehiclenum+"|"+Vinout+"|"+Vowner+"|"+Vlmob+"|"+vltyp+"|"+vreason+"\n")
-    VhlReader.close()
+    vehiclenum=vlNum.get().upper()
+    Vinout=vlInout.get().upper()
+    Vowner=vlOwner.get().upper()
+    Vlmob=vlMob.get().upper()
+    vltyp=vlType.get().upper()
+    vreason=vlReason.get().upper()
+    if vehiclenum=="":
+        messagebox.showwarning("showwarning", "Field Is Empty")
+    elif Vinout=="":
+        messagebox.showwarning("showwarning", "Field Is Empty")
+    elif Vowner=="":
+        messagebox.showwarning("showwarning", "Field Is Empty")
+    elif Vlmob=="":
+        messagebox.showwarning("showwarning", "Field Is Empty")
+    elif vltyp=="":
+        messagebox.showwarning("showwarning", "Field Is Empty")
+    elif vreason=="":
+        messagebox.showwarning("showwarning", "Field Is Empty")
+    else:
+        print("Details:",time,"|",date,"|",vehiclenum,"|",Vinout,"|",Vowner,"|",Vowner,"|",Vlmob,"|",vltyp,"|",vreason)
+        VhlReader=open("Data Records/Vehicle.txt","a")
+        VhlReader.write(str(date)+"|"+time+"|"+vehiclenum+"|"+Vinout+"|"+Vowner+"|"+Vlmob+"|"+vltyp+"|"+vreason+"\n")
+        messagebox.showinfo("STATUS", "RECORD ADDED TO DATABASE")
+        client = Client('AC4fb3f859d841739f658840ac79a3e879', '6bbdad1b6761f73b391dae6b4c69f87f')
+        message = client.messages \
+                .create(
+                     body="Hi "+Vowner+" \nWelcome to Yenepoya Institute of Technology"+" \nYour entering Time :"+str(time)+"\nDate:"+str(date)+"\nVehicle Number:"+vehiclenum+"\nLiqiud-Loop Gate Security System",
+                     from_='+19403505053',
+                     to="+91"+Vlmob
+                 )
+
+        print(message.sid)
+
+
+
+        VhlReader.close()
 # variables for vhl search->
 s_date=StringVar()
 s_num=StringVar()
@@ -99,13 +127,11 @@ def vehlsearch():
             #     print(temp)
             nl=line.split("|")
             temp.append(nl)
+        
     for i in range(0,len(temp)):
         if temp[i][2]==vnum:
-           
             treev.insert("", 'end', text ="L"+str(i),values =(temp[i][0],temp[i][1],temp[i][2],temp[i][3],temp[i][4],temp[i][5],temp[i][6],temp[i][7]))   
-        else:
-            messagebox.showerror("INFO", "Record Not Found in DB")
-            exit
+        
     # else:
     #     for i in range(0,len(temp)):
     #        treev.insert("", 'end', text ="L"+str(i),values =(temp[i][0],temp[i][1],temp[i][2],temp[i][3],temp[i][4],temp[i][5],temp[i][6],temp[i][7]))
@@ -202,6 +228,7 @@ def update_sec():
             if line.startswith(temp_list[0]):
                     nl=line.split("|")
                     if nl[1]==temp_list[1]:
+                        index=lines.index(line)
                         print("up to",nl)
         up_record=[]
         up_record.append(nl[0])
@@ -217,13 +244,17 @@ def update_sec():
         update_file="|".join(up_record)
         # print(update_file)
 
-        INDEX=lines.index(line)
-        lines[INDEX]=update_file
+        # INDEX=lines.index(line)
+        lines[index]=update_file
         print(lines)
+
         
         filereader2=open("Data Records/Vehicle.txt","w+")
         for i in lines:
             filereader2.write(i)
+        u_name=up_name.set("")
+        u_num=up_num.set("")
+        u_mob=up_mob.set("")
         filereader2.close()
         update_section.mainloop()
 
@@ -234,6 +265,8 @@ def update_sec():
         # print("Up:",temp)
         
     # date of vhl
+    vdate = Label(update_section,text = "Date:",bg="#FFFFFF").place(x = 20,y = 70)
+
     vdate = Entry(update_section,
         bd=0,
         bg="#C4C4C4",
@@ -248,6 +281,7 @@ def update_sec():
     )
 
     # vhl number
+    vhlnum = Label(update_section,text = "Vehicle Number:",bg="#FFFFFF").place(x = 250,y = 70)
     vhlnum = Entry(update_section,
         bd=0,
         bg="#C4C4C4",
@@ -266,7 +300,7 @@ def update_sec():
         highlightthickness=0,
         command=updateData,
         relief="flat",
-        text="UPDATE"
+        text="View"
     )
     addbtn.place(
         x=470.0,
@@ -275,6 +309,7 @@ def update_sec():
         height=50.0
     )
     # vhl owner name
+    u_name = Label(update_section,text = "Owner:",bg="#FFFFFF").place(x = 20,y = 455)
     u_name = Entry(update_section,
         bd=0,
         bg="#C4C4C4",
@@ -288,6 +323,8 @@ def update_sec():
         height=48.0
     )
     # Vehicle number
+    vhlnum = Label(update_section,text = "Vehicle Number:",bg="#FFFFFF").place(x = 247,y = 455)
+
     vhlnum = Entry(update_section,
         bd=0,
         bg="#C4C4C4",
@@ -300,6 +337,7 @@ def update_sec():
         width=182.0,
         height=48.0
     )
+    mob= Label(update_section,text = "Mobile:",bg="#FFFFFF").place(x = 473,y = 455)
     mob = Entry(update_section,
         bd=0,
         bg="#C4C4C4",
