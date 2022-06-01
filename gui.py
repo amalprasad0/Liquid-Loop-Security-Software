@@ -2,7 +2,7 @@
 
 
 
-
+from time import strftime
 from email.mime import image
 from operator import index
 from pathlib import Path
@@ -57,12 +57,13 @@ vlDate.set(today)
 # time->
 
 
-now = datetime.now()
-time = now.strftime("%H:%M:%S:%p")
-# vlTime.set(time)string = strftime('%H:%M:%S %p')
-# vlTime.config(text = string)
-# vlTime.after(1000, time)
-vlTime.set(time)
+
+def time():
+    string = strftime('%H:%M:%S %p')
+    
+    
+    vlTime.set(string)
+    vdate.after(1000, time)
 # method for Insertion of vhl rcd
 def insertData():
     time=vlTime.get()
@@ -90,15 +91,15 @@ def insertData():
         VhlReader=open("Data Records/Vehicle.txt","a")
         VhlReader.write(str(date)+"|"+time+"|"+vehiclenum+"|"+Vinout+"|"+Vowner+"|"+Vlmob+"|"+vltyp+"|"+vreason+"\n")
         messagebox.showinfo("STATUS", "RECORD ADDED TO DATABASE")
-        client = Client('AC4fb3f859d841739f658840ac79a3e879', '6bbdad1b6761f73b391dae6b4c69f87f')
-        message = client.messages \
-                .create(
-                     body="Hi "+Vowner+" \nWelcome to Yenepoya Institute of Technology"+" \nYour entering Time :"+str(time)+"\nDate:"+str(date)+"\nVehicle Number:"+vehiclenum+"\nLiqiud-Loop Gate Security System",
-                     from_='+19403505053',
-                     to="+91"+Vlmob
-                 )
+        # client = Client('AC4fb3f859d841739f658840ac79a3e879', '6bbdad1b6761f73b391dae6b4c69f87f')
+        # message = client.messages \
+        #         .create(
+        #              body="Hi "+Vowner+"Welcome to Yenepoya Institute of Technology"+" \nYour entering Time :"+str(time)+"\nDate:"+str(date)+"\nVehicle Number:"+vehiclenum+"\nLiqiud-Loop Gate Security System",
+        #              from_='+19403505053',
+        #              to="+91"+Vlmob
+        #          )
 
-        print(message.sid)
+        # print(message.sid)
 
 
 
@@ -252,6 +253,7 @@ def update_sec():
         filereader2=open("Data Records/Vehicle.txt","w+")
         for i in lines:
             filereader2.write(i)
+        messagebox.showinfo("Sucess", "Successfully updated")
         u_name=up_name.set("")
         u_num=up_num.set("")
         u_mob=up_mob.set("")
@@ -1093,7 +1095,7 @@ def student_update():
     sup_usn=StringVar()
     sup_mob=StringVar()
     search_date.set("2022-05-27")
-    search_usn.set("4dm19is027")
+    search_usn.set("4dm19is045")
     def SearchTree():
         Student_date=search_date.get()
         print(Student_date)
@@ -1198,6 +1200,10 @@ def student_update():
         filereader2=open("Data Records/Student.txt","w+")
         for i in lines:
             filereader2.write(i)
+        messagebox.showinfo("Status", "Record Updated")
+        sup_name.set("")
+        sup_usn.set("")
+        sup_mob.set("")
         filereader2.close()
 # -----------------Endend------------
 
@@ -1205,6 +1211,8 @@ def student_update():
         
         
     # date of Student
+    vdate = Label(Supdate_section,text = "Date:",bg="#FFFFFF").place(x = 20,y = 70)
+
     student_date = Entry(Supdate_section,
         bd=0,
         bg="#C4C4C4",
@@ -1219,6 +1227,8 @@ def student_update():
     )
 
     # vhl number
+    vhlnum = Label(Supdate_section,text = "USN:",bg="#FFFFFF").place(x = 250,y = 70)
+
     student_usn = Entry(Supdate_section,
         bd=0,
         bg="#C4C4C4",
@@ -1246,6 +1256,8 @@ def student_update():
         height=50.0
     )
     # vhl owner name
+    u_name = Label(Supdate_section,text = "Name:",bg="#FFFFFF").place(x = 20,y = 455)
+
     update_nameS = Entry(Supdate_section,
         bd=0,
         bg="#C4C4C4",
@@ -1259,6 +1271,8 @@ def student_update():
         height=48.0
     )
     # Vehicle number
+    vhlnum = Label(Supdate_section,text = "USN:",bg="#FFFFFF").place(x = 247,y = 455)
+
     student_usn2 = Entry(Supdate_section,
         bd=0,
         bg="#C4C4C4",
@@ -1271,6 +1285,7 @@ def student_update():
         width=182.0,
         height=48.0
     )
+    mob= Label(Supdate_section,text = "Mobile:",bg="#FFFFFF").place(x = 473,y = 455)
     student_mob= Entry(Supdate_section,
         bd=0,
         bg="#C4C4C4",
@@ -1401,7 +1416,7 @@ statusbar =Label(window, text="Records:"+str(tcount)+"    Updated Records:7     
 statusbar.pack(side=BOTTOM, fill=X)
 # ended------------>
 window.resizable(False,False)
-
+time()
 # ------STUDENT SEARCH SECTION-------->
 photo = PhotoImage(file ="assets/barrier.png")
 window.iconphoto(False,photo)
