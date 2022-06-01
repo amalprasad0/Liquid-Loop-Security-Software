@@ -1,6 +1,6 @@
 # Liquid-Loop-Security-Software
 <p align="center">
-  <img src="https://www.flaticon.com/free-icon/welcome-back_5331946?term=welcome&page=1&position=5&page=1&position=5&related_id=5331946&origin=search" width="128">
+  <img src="https://github.com/amalprasad0/Liquid-Loop-Security-Software/blob/master/welcome-back.png" width="128">
   <br />
   <h1 align="center">Lets Build it Together</h1>
   <h3 align="center">
