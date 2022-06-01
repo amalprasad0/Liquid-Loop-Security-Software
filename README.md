@@ -5,7 +5,7 @@
   <h1 align="center">ebb</h1>
   <h3 align="center">
 
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-34cdfa)](CODE_OF_CONDUCT.md)
+[![contributions welcome]
 
   </h3>
 </p>
