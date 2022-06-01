@@ -5,7 +5,7 @@
   <h1 align="center">Lets Build it Together</h1>
   <h3 align="center">
 
-[![contributions welcome]
+##contributions welcome
 
   </h3>
 </p>
