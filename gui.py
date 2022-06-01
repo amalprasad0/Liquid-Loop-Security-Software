@@ -64,6 +64,8 @@ def time():
     
     vlTime.set(string)
     vdate.after(1000, time)
+
+
 # method for Insertion of vhl rcd
 def insertData():
     time=vlTime.get()
@@ -412,11 +414,11 @@ ss_Usn=StringVar()
 def studentadd():
     time=s_time.get()
     t_date=date.today()
-    name=s_name.get()
-    usn=s_usn.get()
-    mobile=s_mob.get()
-    reason=s_reason.get()
-    inout=s_inout.get()
+    name=s_name.get().upper()
+    usn=s_usn.get().upper()
+    mobile=s_mob.get().upper()
+    reason=s_reason.get().upper()
+    inout=s_inout.get().upper()
     if name=="":
         messagebox.showerror("Required", "Name is Empty")
     elif usn=="":
@@ -436,7 +438,7 @@ def studentadd():
 #--------------SEARCH FOR STUD----------  
 def searchStudent():
     o_date=ss_Date.get()
-    usn=ss_Usn.get()
+    usn=ss_Usn.get().upper()
     studentfile=open("Data Records/Student.txt")
     lines=studentfile.readlines()
     match=[]
@@ -1417,6 +1419,7 @@ statusbar.pack(side=BOTTOM, fill=X)
 # ended------------>
 window.resizable(False,False)
 time()
+
 # ------STUDENT SEARCH SECTION-------->
 photo = PhotoImage(file ="assets/barrier.png")
 window.iconphoto(False,photo)
