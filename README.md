@@ -21,7 +21,7 @@
 <h3 align="center">For Windows 10/11</h3>
 <p align="center"><a href="https://github.com/amalprasad0/Liquid-Loop-Security-Software/releases/tag/v1.0.3"> Download source code</a></p>
 <br>
-<p align="center"><a href="https://amalprasad0/Liquid-Loop-Security-Software/releases/download/v1.0.3/Setup.exe"> Download setup file(.exe)</a></p>
+<p align="center"><a href="https://github.com/amalprasad0/Liquid-Loop-Security-Software/releases/download/v1.0.3/Setup.exe"> Download setup file(.exe)</a></p>
 
 
 
