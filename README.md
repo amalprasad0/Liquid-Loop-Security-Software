@@ -17,10 +17,11 @@
 
 
 
-<h3 align="left">Releases</h3>
-<p align="left"><a href="https://github.com/amalprasad0/Liquid-Loop-Security-Software/releases/tag/v1.0.0"> Download</a></p>
+<h3 align="center">Releases</h3>
+<h3 align="center">For Windows 10/11</h3>
+<p align="center"><a href="https://github.com/amalprasad0/Liquid-Loop-Security-Software/releases/tag/v1.0.3"> Download Setup</a></p>
 <br>
-<a href="https://github.com/amalprasad0/Liquid-Loop-Security-Software/blob/master/Setup.exe"> Download Set up file for windows 10/11 directly</a>
+
 
 
 
