@@ -6,7 +6,7 @@ from pathlib import Path
 from re import T
 from tkinter import *
 from tkinter import ttk
-import gui
+import app
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
